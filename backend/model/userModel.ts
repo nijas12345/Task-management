@@ -16,10 +16,10 @@ const userSchema = new Schema({
     type: String,
   },
   role: {
-      type: String,
-      enum: ["manager", "member"],
-      default: "member",
-    },
+    type: String,
+    enum: ["manager", "member"],
+    default: "member",
+  },
 });
 
 export type UserInput = InferSchemaType<typeof userSchema>;

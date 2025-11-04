@@ -1,26 +1,36 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from 'dotenv'
-dotenv.config()
-const PORT = process.env.PORT
-const app: Application = express();
-const ORIGIN = process.env.ORIGIN?.split(",")
+import dotenv from "dotenv";
+import { createServer } from "http";
+import { configSocketIO } from "./config/socket_config";
+import userRoute from "./routes/userRoute";
+import databaseConnection from "./config/databaseConfig";
+import "./jobs/dailyReminder";
+dotenv.config();
+databaseConnection();
 
-app.use(cors({
-  origin: "http://localhost:5173", // your frontend URL
-  credentials: true
-}));
+const PORT = process.env.PORT || 8000;
+const app: Application = express();
+const allowedOrigins = process.env.CORS_ORIGINS?.split(",");
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
+app.use("/", userRoute);
 
+const server = createServer(app);
 
-app.post("/auth/login", (req: Request, res: Response) => {
-  const { email,password, role } = req.body;
-  console.log(email,password,role);
+configSocketIO(server);
+
+server.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
-
-
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -9,6 +9,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["**/*.ts"],    // 👈 Include all TypeScript files
+  "include": ["**/*.ts"],
+  "files":["./types/express.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
