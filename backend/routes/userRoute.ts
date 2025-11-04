@@ -4,7 +4,7 @@ import User from "../model/userModel";
 import Project from "../model/projectModel";
 import Notification from "../model/notificationModel";
 import UserServices from "../services/UserService";
-import UserController from "../controllers/UserControlleuserr";
+import UserController from "../controllers/UserController";
 import { verifyToken } from "../config/jwtConfig";
 import ProjectRepository from "../repositories/ProjectRepository";
 import ProjectController from "../controllers/ProjectController";
@@ -15,7 +15,7 @@ import TaskService from "../services/TaskService";
 import NotificationRepository from "../repositories/NotificationRepository";
 import NotificationService from "../services/NotificationService";
 import NotificationController from "../controllers/NotificationController";
-import TaskController from "../controllers/TaskController";
+import TaskControllers from "../controllers/TaskControllers";
 
 const userRepository = new UserRepository(User);
 const userService = new UserServices(userRepository);
@@ -31,7 +31,7 @@ const taskService = new TaskService(
   userRepository,
   notificationRepository
 );
-const taskController = new TaskController(taskService);
+const taskController = new TaskControllers(taskService);
 const projectRepository = new ProjectRepository(Project);
 const projectService = new ProjectService(
   projectRepository,

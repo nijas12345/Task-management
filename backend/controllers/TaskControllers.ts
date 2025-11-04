@@ -4,7 +4,7 @@ import HTTP_statusCode from "../enums/httpStatusCode";
 import { handleError } from "../utils/handleError";
 import { CreateTaskDTO } from "../interfaces/commonInterface";
 
-class TaskController {
+class TaskControllers {
   private taskService: ITaskService;
   constructor(taskService: ITaskService) {
     this.taskService = taskService;
@@ -113,4 +113,4 @@ class TaskController {
   };
 }
 
-export default TaskController;
+export default TaskControllers;
