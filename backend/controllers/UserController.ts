@@ -30,7 +30,6 @@ class UserController {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        path: "/",
         maxAge: 30 * 60 * 1000,
       });
       res.status(HTTP_statusCode.OK).json(serviceResponse.userData);
@@ -61,8 +60,10 @@ class UserController {
   logout = async (req: Request, res: Response) => {
     try {
       res.clearCookie("userToken", {
-        httpOnly: true,
-      });
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+    });
       res.status(HTTP_statusCode.OK).json("Logged out successfully");
     } catch (error: unknown) {
       handleError(error, res);
