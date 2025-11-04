@@ -29,7 +29,7 @@ class UserController {
       res.cookie("userToken", serviceResponse.userToken, {
         httpOnly: true,
         sameSite: "lax",
-        secure: false,
+        secure: true,
         path: "/",
         maxAge: 30 * 60 * 1000,
       });
